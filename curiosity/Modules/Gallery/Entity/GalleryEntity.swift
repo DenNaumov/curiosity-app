@@ -10,14 +10,14 @@ import Foundation
 
 class ImageFile {
 
-    private let content: NSData
+    private let content: NSData? = nil
+    let url: URL
 
     init(from url: URL) {
-        guard let imageContent = NSData(contentsOf: url) else { fatalError() }
-        content = imageContent
+        self.url = url
     }
     
     public func getContent() -> NSData {
-        return content
+        return content!
     }
 }

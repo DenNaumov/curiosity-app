@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import Alamofire
 
 class GalleryCollectionViewCell: UICollectionViewCell {
 
     var imageView: UIImageView? = nil
+    var title: UILabel? = nil
 
     func setup(with image: ImageFile) {
-//        guard let imageData = NSData(contentsOf: fileURL) else { return }
-        let image = UIImage(data: image.getContent() as Data)
+        let url = image.url
+        AF.request(url).responseData(completionHandler: handleImageDownload)
+        self.title = UILabel()
+    }
+    
+    private func handleImageDownload(response: AFDataResponse<Data>) -> Void {
+        let image = UIImage(data: response.data! as Data)
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true

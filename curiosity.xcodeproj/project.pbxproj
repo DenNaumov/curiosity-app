@@ -26,7 +26,7 @@
 		92B054662831098200D51DDC /* CuriosityCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B054652831098200D51DDC /* CuriosityCamera.swift */; };
 		92B05468283109AA00D51DDC /* CuriosityPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B05467283109AA00D51DDC /* CuriosityPhoto.swift */; };
 		B7FF887D56EDB214709C9EB7 /* Pods_curiosity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3939CDB185850A4A614A087E /* Pods_curiosity.framework */; };
-		BCB1D5692308491C00587766 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB1D5682308491C00587766 /* APIModel.swift */; };
+		BCB1D5692308491C00587766 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB1D5682308491C00587766 /* ServerResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +53,7 @@
 		9228D20226DA085D00FA2A11 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		92B054652831098200D51DDC /* CuriosityCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuriosityCamera.swift; sourceTree = "<group>"; };
 		92B05467283109AA00D51DDC /* CuriosityPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuriosityPhoto.swift; sourceTree = "<group>"; };
-		BCB1D5682308491C00587766 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
+		BCB1D5682308491C00587766 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		F19A6F92B8200CA9679AC73B /* Pods-curiosity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-curiosity.debug.xcconfig"; path = "Target Support Files/Pods-curiosity/Pods-curiosity.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -261,7 +261,7 @@
 		BCB1D56A2308492600587766 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				BCB1D5682308491C00587766 /* APIModel.swift */,
+				BCB1D5682308491C00587766 /* ServerResponse.swift */,
 				92B054652831098200D51DDC /* CuriosityCamera.swift */,
 				92B05467283109AA00D51DDC /* CuriosityPhoto.swift */,
 			);
@@ -377,7 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB1D5692308491C00587766 /* APIModel.swift in Sources */,
+				BCB1D5692308491C00587766 /* ServerResponse.swift in Sources */,
 				9189080322FE919800D60DB7 /* GalleryPresenter.swift in Sources */,
 				92B054662831098200D51DDC /* CuriosityCamera.swift in Sources */,
 				9189080622FE919800D60DB7 /* GalleryInteractor.swift in Sources */,

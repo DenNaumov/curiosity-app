@@ -18,7 +18,7 @@ class GalleryViewController: UIViewController, GalleryViewAssemblyProtocol {
 
     private var collectionView: UICollectionView!
     private var loadingIndicator: UIActivityIndicatorView!
-    private var updateIndicator: UIActivityIndicatorView!
+    private var updatingIndicator: UIActivityIndicatorView!
     
     struct Appearance {
         static let cellHeight = 250
@@ -65,9 +65,9 @@ class GalleryViewController: UIViewController, GalleryViewAssemblyProtocol {
             make.center.width.height.equalToSuperview()
         }
 
-        updateIndicator = UIActivityIndicatorView(style: .whiteLarge)
-        view.addSubview(updateIndicator)
-        updateIndicator.snp.makeConstraints { make in
+        updatingIndicator = UIActivityIndicatorView(style: .large)
+        view.addSubview(updatingIndicator)
+        updatingIndicator.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(Appearance.updateIndicatorBottomInset)
         }
@@ -77,27 +77,27 @@ class GalleryViewController: UIViewController, GalleryViewAssemblyProtocol {
 extension GalleryViewController: GalleryPresenterToViewProtocol {
 
     func showUpdateIndicator() {
-        updateIndicator.startAnimating()
+        updatingIndicator.startAnimating()
     }
     
     func hideUpdateIndicator() {
-        updateIndicator.stopAnimating()
+        updatingIndicator.stopAnimating()
     }
 
-    func initiateGallery(_ localFiles: [ImageFile]) {
-        dataSourceFiles = localFiles
+    func initiateGallery(_ files: [ImageFile]) {
+        dataSourceFiles = files
         setupCollectionView()
     }
 
-    func addToGallery(_ localFiles: [ImageFile]) {
-        let previousElementsCount = dataSourceFiles.count
-        let addedElementsCount = localFiles.count
-        let actualElementsCount = previousElementsCount + addedElementsCount
+    func addToGallery(_ files: [ImageFile]) {
+        let lastFilesCount = dataSourceFiles.count
+        let newFilesCount = files.count
+        let actualFilesCount = lastFilesCount + newFilesCount
         var indexes: [IndexPath] = []
-        for i in previousElementsCount...(actualElementsCount - 1) {
+        for i in lastFilesCount...(actualFilesCount - 1) {
             indexes.append(IndexPath(item: i, section: 0))
         }
-        dataSourceFiles.append(contentsOf: localFiles)
+        dataSourceFiles.append(contentsOf: files)
         collectionView?.insertItems(at: indexes)
     }
 

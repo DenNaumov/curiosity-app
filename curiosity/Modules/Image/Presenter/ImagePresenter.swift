@@ -18,7 +18,6 @@ class ImagePresenter: ImagePresenterAssemblyProtocol {
     init(imageFile: ImageFile) {
         self.imageFile = imageFile
     }
-
 }
 
 extension ImagePresenter: ImageViewToPresenterProtocol {

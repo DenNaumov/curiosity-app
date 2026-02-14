@@ -13,12 +13,14 @@ struct CuriosityPhoto: Decodable {
     let remoteURL: URL
     let date: Date
     let camera: CuriosityCamera
+//    let rover: CuriosityRover
     
     enum CodingKeys: String, CodingKey {
         case id
         case remoteURL = "img_src"
         case date = "earth_date"
         case camera
+//        case rover
     }
     
     init(from decoder: Decoder) throws {
