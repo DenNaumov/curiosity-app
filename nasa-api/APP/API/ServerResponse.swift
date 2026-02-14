@@ -29,8 +29,13 @@ struct CuriosityPhoto: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         let url  = try values.decode(URL.self, forKey: .remoteURL)
-        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { fatalError() }
+        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            throw DecodingError.dataCorruptedError(forKey: .remoteURL, in: values, debugDescription: "Invalid URL components")
+        }
         urlComponents.scheme = "https"
-        remoteURL = urlComponents.url!
+        guard let secureURL = urlComponents.url else {
+            throw DecodingError.dataCorruptedError(forKey: .remoteURL, in: values, debugDescription: "Could not create secure URL")
+        }
+        remoteURL = secureURL
     }
 }

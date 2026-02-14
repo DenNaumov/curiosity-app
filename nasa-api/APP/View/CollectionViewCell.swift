@@ -9,49 +9,59 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     
-    private weak var loadingView: UIView?
-    private weak var imageView: UIImageView?
+    private weak var loadingIndicator: UIActivityIndicatorView?
+    private let imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        return iv
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .cyan
-        layer.borderColor = UIColor.black.cgColor
-        layer.borderWidth = 1
-        layer.cornerRadius = 13
-        clipsToBounds = true
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setupUI()
+    }
+    
+    private func setupUI() {
+        backgroundColor = .systemGray6
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 0.5
+        layer.cornerRadius = 13
+        clipsToBounds = true
+        
+        contentView.addSubview(imageView)
+        imageView.frame = contentView.bounds
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     func addLoadingIndicator() {
-        let activityIndicatorView = UIView(frame: bounds)
-        activityIndicatorView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.startAnimating()
-        activityIndicator.center = activityIndicatorView.center
-        activityIndicatorView.addSubview(activityIndicator)
-        addSubview(activityIndicatorView)
-        loadingView = activityIndicatorView
+        if loadingIndicator == nil {
+            let indicator = UIActivityIndicatorView(style: .medium)
+            indicator.center = contentView.center
+            indicator.startAnimating()
+            contentView.addSubview(indicator)
+            loadingIndicator = indicator
+        }
     }
     
     func deleteLoadingIndicator() {
-        loadingView?.removeFromSuperview()
-        loadingView = nil
+        loadingIndicator?.stopAnimating()
+        loadingIndicator?.removeFromSuperview()
+        loadingIndicator = nil
     }
     
     func setImage(data: Data) {
-        let image = UIImage.init(data: data, scale: 10)
-        let imageView = UIImageView(image: image)
-        self.imageView = imageView
-        addSubview(imageView)
+        imageView.image = UIImage(data: data)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView?.removeFromSuperview()
-        imageView = nil
-        print(subviews.count)
+        imageView.image = nil
+        deleteLoadingIndicator()
     }
 }

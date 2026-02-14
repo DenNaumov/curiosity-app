@@ -9,36 +9,17 @@ import Foundation
 
 class NetworkService {
 
-    func request(from: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    func request(from urlString: String) async throws -> Data {
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
         
-        guard let url = URL(string: from) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            DispatchQueue.main.async {
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                guard let data = data else { return }
-                completion(.success(data))
-            }
-        }.resume()
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return data
     }
 
-    func requestJson<T: Decodable>(from urlString: String, using type: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
-        
-        request(from: urlString) { (result) in
-            switch(result) {
-            case .success(let data):
-                do {
-                    let data = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(data))
-                }
-                catch {
-                    completion(.failure(error))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func requestJson<T: Decodable>(from urlString: String, using type: T.Type) async throws -> T {
+        let data = try await request(from: urlString)
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
